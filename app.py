@@ -1,8 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS,cross_origin
 import pandas as pd
-import json
-import numpy as np
 
 
 app = Flask(__name__)
@@ -14,8 +12,13 @@ persuade=pd.read_csv('persuade2.csv')
 
 
 def recommendation(customer_id):
-    x=recom.loc[customer_id].to_json()
-    return x
+
+    return recom.loc[customer_id].to_json()
+
+
+@app.route('/')
+def hello():
+    return "Welcome: Please put /recom for getting recommendation predictions"
 
 
 @app.route('/recom',methods=['POST'])
